@@ -1,0 +1,32 @@
+version: 2
+
+models:
+  - name: customer_order_summary
+    description: >
+      Per-customer order aggregates, built as a Spark DataFrame in a
+      Python model (see customer_order_summary.py).
+    columns:
+      - name: customer_id
+        description: Primary key.
+        tests:
+          - unique
+          - not_null
+      - name: order_count
+        tests:
+          - not_null
+      - name: total_amount
+        tests:
+          - not_null
+      - name: customer_value_segment
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['high', 'medium', 'low']
+
+  - name: high_value_customers
+    description: Customers in the "high" value segment, filtered in plain SQL from the Python model's output.
+    columns:
+      - name: customer_id
+        tests:
+          - unique
+          - not_null

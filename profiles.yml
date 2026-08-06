@@ -1,0 +1,22 @@
+# Profile for the classic dbt-spark adapter using the "session" connection
+# method, which starts a local PySpark session in-process -- no external
+# Spark cluster or Thrift server required. This is what makes it possible
+# to run the Python (Spark DataFrame) model in this project locally.
+#
+# Requires dbt-core + dbt-spark[session] + pyspark, installed in the
+# project's .venv (see requirements.txt). Use .venv/bin/dbt to run --
+# dbt-fusion (the `dbt` on PATH) doesn't support Python models on Spark
+# at all, and doesn't support method=session either.
+#
+# Normally this file lives at ~/.dbt/profiles.yml. It's included here for
+# convenience; point DBT_PROFILES_DIR at this directory to use it, e.g.:
+#   export DBT_PROFILES_DIR=$(pwd)
+
+dbtpyth_demo:
+  target: dev
+  outputs:
+    dev:
+      type: spark
+      method: session
+      schema: analytics
+      host: NA # unused for method=session, but a value is required
