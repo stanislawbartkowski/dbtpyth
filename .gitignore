@@ -6,3 +6,4 @@ metastore_db/
 derby.log
 dbt_packages/
 .user.yml
+dbt_internal_packages/
